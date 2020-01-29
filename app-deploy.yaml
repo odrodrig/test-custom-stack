@@ -1,0 +1,49 @@
+apiVersion: appsody.dev/v1beta1
+kind: AppsodyApplication
+metadata:
+  annotations:
+    image.opencontainers.org/created: "2020-01-29T16:13:58Z"
+    stack.appsody.dev/authors: Sam Roberts <vieuxtech@gmail.com>
+    stack.appsody.dev/configured: docker-registry-default.oliver-cp4a-395509-5290c8c8e5797924dc1ad5d1b85b37c0-0001.us-east.containers.appdomain.cloud/kabanero-noauth/my-nodejs-express:0.4
+    stack.appsody.dev/created: 2020-01-29T14:06:04+0000
+    stack.appsody.dev/description: Runtime for Node.js applications
+    stack.appsody.dev/licenses: Apache-2.0
+    stack.appsody.dev/revision: 33af0e61b0d72ee46269e3dd87e661f7fcc7a72c
+    stack.appsody.dev/tag: docker.io/appsody/nodejs:0.3.2
+    stack.appsody.dev/title: Node.js
+  creationTimestamp: null
+  labels:
+    image.opencontainers.org/title: test-custom-stack
+    stack.appsody.dev/id: nodejs
+    stack.appsody.dev/version: 0.4.1
+  name: test-custom-stack
+spec:
+  applicationImage: dev.local/test-custom-stack
+  createKnativeService: false
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /live
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  monitoring:
+    labels:
+      k8s-app: test-custom-stack
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /ready
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    timeoutSeconds: 1
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 3000
+    type: NodePort
+  stack: my-nodejs-express
+  version: 1.0.0
+status: {}
